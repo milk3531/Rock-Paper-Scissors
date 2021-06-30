@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> Rock Paper Scissors! </title>
+</head>
+
+<body>
+    <script>
+        let computerMove = computerPlay();
+
+        function computerPlay() {
+            // Create a function that will return a string with rock, paper,
+            // or scissors. 
+            // It should take an argument of string, namely one of rock, paper,
+            // or scissors. 
+            // The random functionality could use Random from math class, and
+            // using a range from 0-33, 34-67, 68-100, with corresponding strings
+            let randomNumber = Math.floor((Math.random() * 100));
+            // Math.random returns a random number between 0-1
+            // We use Math.floor() to return integers
+            // We now will return a random number between 0 and 100
+            // Number generated correctly
+            // console.log(randomNumber);
+            switch (true) {
+                case randomNumber <= 33 && randomNumber >= 0:
+                    return 'paper';
+                    break;
+                case randomNumber <= 67 && randomNumber >= 34:
+                   return 'rock';
+                    break;
+                case randomNumber <= 100 && randomNumber >= 68:
+                    return 'scissors';
+                    break;
+            }
+        }
+
+        function rockPaperScissors(playerSelection, computerSelection) {
+            // Purpose of this function is to play a game of rock paper scissors
+            // This function will compare the playerSelection string with computerSelection string
+            // Rock beats scissors, loses to paper, ties to rock
+            // Scissors beats paper, loses to rock, ties to scissors
+            // Paper beats rock, loses to scissors, ties to paper
+            // When two strings are equivalent, tie (3 cases)
+            // When Rock with scissors, rock wins (This doubles as Scissors loses to Rock) (2 cases)
+            // Rock with paper, paper wins (2 cases)
+            // Scissors with paper, scissors wins (2 cases)
+
+
+            switch (true) {
+                // Case tie
+                case playerSelection.toLowerCase() === computerSelection: {
+                    console.log('It\'s a tie');
+                    break;
+                }
+                // Case Rock to Paper
+                // Case Paper to Rock
+                case playerSelection.toLowerCase() === 'rock':
+                    if (computerSelection === 'paper') {
+                        console.log('You lose! ' + computerSelection + ' beats ' + playerSelection.toLowerCase());
+                    } else if (computerSelection === 'scissors') {
+                        console.log('You win! ' + playerSelection.toLowerCase() + ' beats ' + computerSelection);
+                    }
+                    break;
+                // Case Scissors to Rock
+                // Case Rock to Scissors
+                case playerSelection.toLowerCase() === 'scissors':
+                    if (computerSelection === 'rock') {
+                        console.log('You lose! ' + computerSelection + ' beats ' + playerSelection.toLowerCase());
+                    } else if (computerSelection === 'paper') {
+                        console.log('You win! ' + playerSelection.toLowerCase() + ' beats ' + computerSelection);
+                    } break;
+
+                // Case Paper to Scissors
+                // case Scissors to Paper
+                case playerSelection.toLowerCase() === 'paper':
+                    if (computerSelection === 'scissors') {
+                        console.log('You lose! ' + computerSelection + ' beats ' + playerSelection.toLowerCase());
+                    } else if (computerSelection === 'rock') {
+                        console.log('You win! ' + playerSelection.toLowerCase() + ' beats ' + computerSelection);
+                    } break;
+            }
+        }
+
+        rockPaperScissors('paper', computerMove);
+
+    </script>
+</body>
+
+</html>
