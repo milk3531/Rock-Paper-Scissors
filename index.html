@@ -7,7 +7,10 @@
 
 <body>
     <script>
-        let computerMove = computerPlay();
+        // Since the variable is decalred and a value is assigned before even running game(),
+        // There is constant value for computerMove, and therefore the same moves by the computer everytime
+        // This should be fixed by declaring computerMove inside of game(), then it would be run after every loop
+        // let computerMove = computerPlay();
         let playerScore = 0;
         let computerScore = 0;
         let gameStatus;
@@ -62,9 +65,9 @@
                 case playerSelection.toLowerCase() === 'rock':
                     if (computerSelection === 'paper') {
                         console.log('You lose! ' + computerSelection + ' beats ' + playerSelection.toLowerCase());
-                        gamestatus = 'lose';
+                        gameStatus = 'lose';
                     } else if (computerSelection === 'scissors') {
-                        gamestatus = 'win';
+                        gameStatus = 'win';
                         console.log('You win! ' + playerSelection.toLowerCase() + ' beats ' + computerSelection);
                     }
                     break;
@@ -73,10 +76,10 @@
                 case playerSelection.toLowerCase() === 'scissors':
                     if (computerSelection === 'rock') {
                         console.log('You lose! ' + computerSelection + ' beats ' + playerSelection.toLowerCase());
-                        gamestatus = 'lose';
+                        gameStatus = 'lose';
                     } else if (computerSelection === 'paper') {
                         console.log('You win! ' + playerSelection.toLowerCase() + ' beats ' + computerSelection);
-                        gamestatus = 'win';
+                        gameStatus = 'win';
                     }
                     break;
 
@@ -85,10 +88,10 @@
                 case playerSelection.toLowerCase() === 'paper':
                     if (computerSelection === 'scissors') {
                         console.log('You lose! ' + computerSelection + ' beats ' + playerSelection.toLowerCase());
-                        gamestatus = 'lose';
+                        gameStatus = 'lose';
                     } else if (computerSelection === 'rock') {
                         console.log('You win! ' + playerSelection.toLowerCase() + ' beats ' + computerSelection);
-                        gamestatus = 'win';
+                        gameStatus = 'win';
                     }
                     break;
             }
@@ -101,29 +104,30 @@
 
             // I think the call on function rockPaperScissors returns a constant one value
             // so here it's playing the same game 5 times, instead of 5 different games
+
+            // It seems like the computer is not making random decisions but decisions based on my 
+            // move? This isn't true (I think)
+            // It's like it remembers the move that I make and it replicates its answer for that?
+
             for (let i = 0; i < 5; i++) {
                 let playerMove = prompt('pick one of scissors, rock, paper');
-                rockPaperScissors(playerMove , computerMove);
-                if (gamestatus === 'win') {
+                let computerMove = computerPlay();
+                rockPaperScissors(playerMove, computerMove);
+                if (gameStatus === 'win') {
                     playerScore++;
                     console.log(playerScore);
-                } else if (gamestatus === 'lose') {
+                } else if (gameStatus === 'lose') {
                     computerScore++;
                     console.log(computerScore);
                 }
             }
             if (playerScore > computerScore) {
-                console.log('Player wins! Final score  ' + 'player : ' +playerScore + ' : ' + 'computer : ' +computerScore);
+                console.log('Player wins! Final score  ' + 'player : ' + playerScore + ' : ' + 'computer : ' + computerScore);
+            } else if (playerScore < computerScore) {
+                console.log('Computer wins! Final score  ' + 'player : ' + playerScore + ' : ' + 'computer : ' + computerScore);
             } else {
-                console.log('Computer wins! Final score  ' + 'player : ' + playerScore + ' : '+ 'computer : ' + computerScore);
+                console.log('It\'s a tie! Final score ' + 'player : ' + playerScore + ' : ' + 'computer : ' + computerScore);
             }
-
-
-            // if (playerScore > computerScore) {
-            //     console.log('Player wins! Final score is  ' + playerScore + ' : ' + computerScore);
-            // } else {
-            //     console.log('Computer wins! Final score is ' + playerScore + ' : ' + computerScore);
-            // }
         }
         game();
 
