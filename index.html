@@ -115,10 +115,10 @@
                 rockPaperScissors(playerMove, computerMove);
                 if (gameStatus === 'win') {
                     playerScore++;
-                    console.log(playerScore);
                 } else if (gameStatus === 'lose') {
                     computerScore++;
-                    console.log(computerScore);
+                } else {
+                    console.log('tis a tie!');
                 }
             }
             if (playerScore > computerScore) {
