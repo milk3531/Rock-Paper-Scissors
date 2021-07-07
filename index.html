@@ -5,8 +5,80 @@
     <title> Rock Paper Scissors! </title>
 </head>
 
-<body>
+
+<div id='display'>
+    <h1 id='currentScorePlayer'> </h1>
+    <h1 id='currentScoreComputer'> </h1>
+    <p id='result'>
+    </p>
+</div>
+
+<body id='main_body'>
+    <!-- <video>
+        <source src="qrogNxl.mp4" type="video/mp4">
+    </video> -->
+
+    <button id='rock'> Rock </button>
+    <button id='paper'> Paper</button>
+    <button id='scissors'> Scissors</button>
+
+
+
+
+
     <script>
+        let playerMove;
+        let results;
+        let currentScorePlayer;
+        let currentScoreComputer;
+        mainBody = document.querySelector('main_body');
+        result = document.querySelector('#result');
+
+        currentScorePlayer = document.querySelector('#currentScorePlayer');
+        currentScoreComputer = document.querySelector('#currentScoreComputer');
+        // results is initialized once, then never changed
+        // result.textContent = results;
+
+
+        currentScoreComputer.style.marginLeft = '6em';
+        // position is in absolute by default, need to change it to move up and down
+        currentScoreComputer.style.position = 'relative';
+        currentScoreComputer.style.top = '-1.8em';
+        // mainBody.style.backgroundImage = 'qrogNxl.mp4';
+
+
+
+
+
+
+
+
+
+
+
+
+        const btns = document.querySelectorAll('button');
+        btns.forEach((btn) => {
+            btn.addEventListener('click', () => {
+                playerMove = btn.id;
+                game();
+                result.textContent = results;
+                currentScorePlayer.textContent = 'Player: ' + playerScore;
+                currentScoreComputer.textContent = 'Computer: ' + computerScore;
+                if (playerScore === 5) {
+                    alert('Player wins!');
+                } else if (computerScore === 5) {
+                    alert('Computer wins!');
+                }
+
+
+            })
+        })
+
+
+
+
+
         // Since the variable is decalred and a value is assigned before even running game(),
         // There is constant value for computerMove, and therefore the same moves by the computer everytime
         // This should be fixed by declaring computerMove inside of game(), then it would be run after every loop
@@ -58,27 +130,33 @@
                 // Each case should return a string for the purpose of playing 5 games in a row
                 // Case tie
                 case playerSelection.toLowerCase() === computerSelection:
-                    console.log('It\'s a tie');
+                    // console.log('It\'s a tie');
+                    results = 'It\'s a tie';
+
                     break;
                 // Case Rock to Paper
                 // Case Paper to Rock
                 case playerSelection.toLowerCase() === 'rock':
                     if (computerSelection === 'paper') {
-                        console.log('You lose! ' + computerSelection + ' beats ' + playerSelection.toLowerCase());
+                        // console.log('You lose! ' + computerSelection + ' beats ' + playerSelection.toLowerCase());
+                        results = 'You lose! ' + computerSelection + ' beats ' + playerSelection.toLowerCase();
                         gameStatus = 'lose';
                     } else if (computerSelection === 'scissors') {
                         gameStatus = 'win';
-                        console.log('You win! ' + playerSelection.toLowerCase() + ' beats ' + computerSelection);
+                        // console.log('You win! ' + playerSelection.toLowerCase() + ' beats ' + computerSelection);
+                        results = 'You win! ' + playerSelection.toLowerCase() + ' beats ' + computerSelection;
                     }
                     break;
                 // Case Scissors to Rock
                 // Case Rock to Scissors
                 case playerSelection.toLowerCase() === 'scissors':
                     if (computerSelection === 'rock') {
-                        console.log('You lose! ' + computerSelection + ' beats ' + playerSelection.toLowerCase());
+                        // console.log('You lose! ' + computerSelection + ' beats ' + playerSelection.toLowerCase());
+                        results = 'You lose! ' + computerSelection + ' beats ' + playerSelection.toLowerCase();
                         gameStatus = 'lose';
                     } else if (computerSelection === 'paper') {
-                        console.log('You win! ' + playerSelection.toLowerCase() + ' beats ' + computerSelection);
+                        // console.log('You win! ' + playerSelection.toLowerCase() + ' beats ' + computerSelection);
+                        results = 'You win! ' + playerSelection.toLowerCase() + ' beats ' + computerSelection;
                         gameStatus = 'win';
                     }
                     break;
@@ -87,10 +165,12 @@
                 // case Scissors to Paper
                 case playerSelection.toLowerCase() === 'paper':
                     if (computerSelection === 'scissors') {
-                        console.log('You lose! ' + computerSelection + ' beats ' + playerSelection.toLowerCase());
+                        // console.log('You lose! ' + computerSelection + ' beats ' + playerSelection.toLowerCase());
+                        results = 'You lose! ' + computerSelection + ' beats ' + playerSelection.toLowerCase();
                         gameStatus = 'lose';
                     } else if (computerSelection === 'rock') {
-                        console.log('You win! ' + playerSelection.toLowerCase() + ' beats ' + computerSelection);
+                        // console.log('You win! ' + playerSelection.toLowerCase() + ' beats ' + computerSelection);
+                        results = 'You win! ' + playerSelection.toLowerCase() + ' beats ' + computerSelection;
                         gameStatus = 'win';
                     }
                     break;
@@ -102,34 +182,34 @@
             // Score will be kept by whether the string returned from rockPaperScissors function contains
             // a 'win', a 'lose'
 
-            // I think the call on function rockPaperScissors returns a constant one value
-            // so here it's playing the same game 5 times, instead of 5 different games
+            // for (let i = 0; i < 5; i++) { 
 
-            // It seems like the computer is not making random decisions but decisions based on my 
-            // move? This isn't true (I think)
-            // It's like it remembers the move that I make and it replicates its answer for that?
+            // let playerMove = prompt('pick one of scissors, rock, paper');
 
-            for (let i = 0; i < 5; i++) {
-                let playerMove = prompt('pick one of scissors, rock, paper');
-                let computerMove = computerPlay();
-                rockPaperScissors(playerMove, computerMove);
-                if (gameStatus === 'win') {
-                    playerScore++;
-                } else if (gameStatus === 'lose') {
-                    computerScore++;
-                } else {
-                    console.log('tis a tie!');
-                }
-            }
-            if (playerScore > computerScore) {
-                console.log('Player wins! Final score  ' + 'player : ' + playerScore + ' : ' + 'computer : ' + computerScore);
-            } else if (playerScore < computerScore) {
-                console.log('Computer wins! Final score  ' + 'player : ' + playerScore + ' : ' + 'computer : ' + computerScore);
+            let computerMove = computerPlay();
+            rockPaperScissors(playerMove, computerMove);
+            if (gameStatus === 'win') {
+                playerScore++;
+            } else if (gameStatus === 'lose') {
+                computerScore++;
             } else {
-                console.log('It\'s a tie! Final score ' + 'player : ' + playerScore + ' : ' + 'computer : ' + computerScore);
+                // Say nothing
             }
+
+            // For loop end ->  }
+            // if (playerScore > computerScore) {
+            //     console.log('Player wins! Final score  ' + 'player : ' + playerScore + ' : ' + 'computer : ' + computerScore);
+            // } else if (playerScore < computerScore) {
+            //     console.log('Computer wins! Final score  ' + 'player : ' + playerScore + ' : ' + 'computer : ' + computerScore);
+            // } else {
+            //     console.log('It\'s a tie! Final score ' + 'player : ' + playerScore + ' : ' + 'computer : ' + computerScore);
+            // }
         }
-        game();
+
+
+
+
+
 
     </script>
 </body>
