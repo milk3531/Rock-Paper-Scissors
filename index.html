@@ -14,13 +14,19 @@
 </div>
 
 <body id='main_body'>
-    <!-- <video>
-        <source src="qrogNxl.mp4" type="video/mp4">
-    </video> -->
 
-    <button id='rock'> Rock </button>
-    <button id='paper'> Paper</button>
-    <button id='scissors'> Scissors</button>
+    <div id='buttons'>
+        <button id='rock'> Rock </button>
+        <button id='paper'> Paper</button>
+        <button id='scissors'> Scissors</button>
+    </div>
+
+    <div>
+        <video autoplay muted loop id='videos'>
+            <source src="qrogNxl.mp4" type="video/mp4">
+         
+        </video>
+    </div>
 
 
 
@@ -31,8 +37,31 @@
         let results;
         let currentScorePlayer;
         let currentScoreComputer;
-        mainBody = document.querySelector('main_body');
-        result = document.querySelector('#result');
+        let buttons;
+        let display = document.querySelector('#display');
+        var video = document.getElementById('videos');
+        var sources = video.getElementsByTagName('source');
+
+        video.style.minWidth = '100%';
+        // video.style.minHeight = '100%';
+        video.style.minHeight = '100%';
+
+        // Get rid of the white space at the top
+        video.style.top = '0';
+        video.style.position = 'absolute';
+        video.style.zIndex = '-1';
+
+        // slow the gif down to 70% of its original speed
+        video.playbackRate = '0.7';
+
+        buttons = document.querySelector('#buttons');
+        let mainBody = document.querySelector('#main_body');
+        let result = document.querySelector('#result');
+
+
+
+        mainBody.style.margin = '0';
+        mainBody.style.overflow = 'hidden';
 
         currentScorePlayer = document.querySelector('#currentScorePlayer');
         currentScoreComputer = document.querySelector('#currentScoreComputer');
@@ -44,7 +73,22 @@
         // position is in absolute by default, need to change it to move up and down
         currentScoreComputer.style.position = 'relative';
         currentScoreComputer.style.top = '-1.8em';
-        // mainBody.style.backgroundImage = 'qrogNxl.mp4';
+
+        buttons.style.position = 'absolute';
+        buttons.style.marginLeft = '35em';
+        buttons.style.top = '15em';
+        buttons.style.zIndex = '2';
+        buttons.style.padding = '15px 32px';
+        buttons.style.border = 'none';
+
+        // change color of text to make it pop up 
+        display.style.color = '#FA8072';
+        display.style.fontSize = '2em';
+        display.style.position = 'relative';
+        display.style.marginLeft = '300px';
+
+        result.style.marginLeft = '180px';
+        result.style.marginTop = '70px';
 
 
 
@@ -61,14 +105,25 @@
         btns.forEach((btn) => {
             btn.addEventListener('click', () => {
                 playerMove = btn.id;
+                // Decided not to reload default page every 5 games because it blinks annoyingly
                 game();
                 result.textContent = results;
                 currentScorePlayer.textContent = 'Player: ' + playerScore;
                 currentScoreComputer.textContent = 'Computer: ' + computerScore;
                 if (playerScore === 5) {
                     alert('Player wins!');
+                    playerScore = 0;
+                    computerScore = 0;
+                    video.src = 'computerLoss.mp4';
+                    video.load();
+                    
                 } else if (computerScore === 5) {
                     alert('Computer wins!');
+                    playerScore = 0;
+                    computerScore = 0;
+                    video.src = 'computerWin.mp4';
+                    video.load();
+                    
                 }
 
 
@@ -196,14 +251,7 @@
                 // Say nothing
             }
 
-            // For loop end ->  }
-            // if (playerScore > computerScore) {
-            //     console.log('Player wins! Final score  ' + 'player : ' + playerScore + ' : ' + 'computer : ' + computerScore);
-            // } else if (playerScore < computerScore) {
-            //     console.log('Computer wins! Final score  ' + 'player : ' + playerScore + ' : ' + 'computer : ' + computerScore);
-            // } else {
-            //     console.log('It\'s a tie! Final score ' + 'player : ' + playerScore + ' : ' + 'computer : ' + computerScore);
-            // }
+         
         }
 
 
